@@ -4,6 +4,18 @@
 #include <stack>
 using namespace std;
 
+int my_lower_bound(vector<int>& lis, int left, int right, int target) {
+    while (left < right) {
+        int mid = (left + right) / 2;
+        if (lis[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid;
+        }
+    }
+    return right;
+}
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
@@ -30,17 +42,9 @@ int main() {
                 ans[i].first = j;
                 ans[i].second = target;
             } else {
-                int left = 0, right = j;
-                while (left < right) {
-                    int mid = (left + right) / 2;
-                    if (lis[mid] < target) {
-                        left = mid + 1;
-                    } else {
-                        right = mid;
-                    }
-                }
-                lis[right] = target;
-                ans[i].first = right;
+                int pos = my_lower_bound(lis, 0, j, target);
+                lis[pos] = target;
+                ans[i].first = pos;
                 ans[i].second = target;
             }
         }
