@@ -1,5 +1,10 @@
 // BOJ 1058 - 친구
 // 전형적인 플로이드 와샬 알고리즘 문제
+// from 과 to 가 친구 인 경우를 알고 싶다면? by를 통해서 알 수 있다. (from -> by, by -> to)
+// adj[i][j] = 0    : 자기 자신이라서 의미 없는 숫자로 지정 한다. (i == j 일 경우)
+// adj[i][j] = 1    : i, j 가 서로 친구인 경우 (Y 인 경우)
+// adj[i][j] = 2    : i, j 가 특정 친구를 거쳐서 친구인 경우
+// adj[i][j] = INF  : i, j 가 친구가 아닌 경우 (N 인 경우)
 #include <iostream>
 #include <string>
 #include <vector>
@@ -27,12 +32,12 @@ int main() {
     
     int n;
     cin >> n;
-    adj = vector<vector<int> >(n, vector<int>(n));
+    adj = vector<vector<int> >(n, vector<int>(n, 0));
     for (int i = 0; i < n; i++) {
         string s;
         cin >> s;
         for (int j = 0; j < s.length(); j++) {
-            if (i == j) adj[i][j] = 0;
+            if (i == j) continue;
             else adj[i][j] = (s[j] == 'Y') ? 1 : INF;
         }
     }
@@ -52,4 +57,3 @@ int main() {
     cout << ans << '\n';
     return 0;
 }
-
