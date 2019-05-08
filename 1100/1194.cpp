@@ -1,7 +1,7 @@
 // BOJ 1194 - 달이 차오른다, 가자.
 // 비트 연산 & BFS 문제
-// BFS 응용 문제로 key를 줘서 이동한다던지 벽을 부술수 있게 해서 한다는지
-// 여러가지 방법이 있는거 같다.
+// BFS 응용 문제로 key를 줘서 이동한다던지 벽을 부술수 있게 해서 한다는지 등등
+// 여러가지 BFS 응용 문제들 있는것 같다.
 #include <iostream>
 #include <string>
 #include <vector>
