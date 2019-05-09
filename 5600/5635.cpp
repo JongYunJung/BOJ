@@ -27,17 +27,13 @@ int main() {
              tie(ignore, aD, aM, aY) = a;
              tie(ignore, bD, bM, bY) = b;
              
-             if (aY > bY) return true;
-             else if (aY == bY) {
-                 if (aM > bM) return true;
-                 else if (aM == bM) {
-                     if (aD > bD) return true;
-                     else return false;
-                 } else return false;
-             } else return false;
+             if(aY == bY && aM == bM) return aD > bD;
+             else if (aY == bY) return aM > bM;
+             else return aY > bY;
          });
     
     cout << get<0>(info.front()) << '\n';
     cout << get<0>(info.back()) << '\n';
     return 0;
 }
+
