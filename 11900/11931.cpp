@@ -13,20 +13,20 @@ int main() {
     int n;
     cin >> n;
     
-    vector<vector<bool> > arr(2, vector<bool>(MAX+1));
+    vector<vector<bool> > count(2, vector<bool>(MAX+1));
     for (int i = 0; i < n; i++) {
         int value;
         cin >> value;
-        if (value >= 0) arr[0][value] = true;
-        else arr[1][abs(value)] = true;
+        if (value >= 0) count[0][value] = true;
+        else count[1][abs(value)] = true;
     }
     
     for (int num = MAX; num >= 0; num--) {
-        if (arr[0][num]) cout << num << '\n';
+        if (count[0][num]) cout << num << '\n';
     }
     
     for (int num = -1; num >= -MAX; num--) {
-        if (arr[1][abs(num)]) cout << num << '\n';
+        if (count[1][abs(num)]) cout << num << '\n';
     }
     
     return 0;
