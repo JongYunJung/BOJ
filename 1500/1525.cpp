@@ -1,83 +1,63 @@
 // BOJ 1525 - 퍼즐
-#include <stdio.h>
-#include <vector>
-#include <queue>
-#include <map>
+#include <iostream>
+#include <unordered_map>
 #include <string>
-#include <algorithm>
+#include <queue>
 using namespace std;
+const int dy[] = {-1, 1, 0, 0};
+const int dx[] = {0, 0, -1, 1};
 
-enum { eSize = 3 };
-
-map<int, int> movecount;
-
-const int dY[4] = {0, 1, 0, -1};
-const int dX[4] = {1, 0, -1, 0};
-
-void BFS(int start)
-{
+int bfs(int start) {
+    unordered_map<int, int> um;
     queue<int> q;
+    
+    um[start] = 0;
     q.push(start);
     
-    movecount[start] = 0;
-    
-    while (!q.empty())
-    {
-        int here = q.front();
-        string strHere = to_string((long long)here);
+    while (!q.empty()) {
+        int current = q.front();
         q.pop();
         
-        if (here == 123456789)
-            break;
+        if (current == 123456789)
+            return um[current];
         
-        int i = strHere.find('9');
-        int cY = i / 3;
-        int cX = i % 3;
+        string strCurrent = to_string(current);
+        int index = (int)strCurrent.find('9');
+        int cy = index / 3, cx = index % 3;
         
-        for (int d = 0; d < 4; ++d)
-        {
-            int nY = cY + dY[d];
-            int nX = cX + dX[d];
-            
-            if (nY < 0 || nY >= eSize || nX < 0 || nX >= eSize)
+        for (int d = 0; d < 4; d++) {
+            int ny = cy + dy[d];
+            int nx = cx + dx[d];
+            if (ny < 0 || ny >= 3 || nx < 0 || nx >= 3)
                 continue;
             
-            string strThere = strHere;
-            
-            swap(strThere[cY * 3 + cX], strThere[nY * 3 + nX]);
-            
-            int there = stoi(strThere);
-            
-            if (movecount.count(there) == 0)
-            {
-                movecount[there] = movecount[here] + 1;
-                q.push(there);
+            string strNext = strCurrent;
+            swap(strNext[cy * 3 + cx], strNext[ny * 3 + nx]);
+            int next = stoi(strNext);
+            if (um.count(next) == 0) {
+                um[next] = um[current] + 1;
+                q.push(next);
             }
         }
     }
+    
+    return -1;
 }
 
-int main()
-{
-    int start = 0;
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
     
-    for (int y = 0; y < eSize; ++y)
-    {
-        for (int x = 0; x < eSize; ++x)
-        {
+    int start = 0;
+    for (int y = 0; y < 3; y++) {
+        for (int x = 0; x < 3; x++) {
             int num;
-            scanf("%d", &num);
-            
-            if (num == 0)
-                num = 9;
-            
+            cin >> num;
+            if (num == 0) num = 9;
             start = start * 10 + num;
         }
     }
     
-    BFS(start);
-    
-    printf("%d\n", (movecount.count(123456789) == 0) ? -1 : movecount[123456789]);
-    
+    cout << bfs(start) << '\n';
     return 0;
 }
