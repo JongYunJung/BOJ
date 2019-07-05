@@ -1,6 +1,5 @@
 // BOJ 2312 - 수 복원하기
 #include <iostream>
-#include <cmath>
 using namespace std;
 
 int main() {
@@ -12,17 +11,19 @@ int main() {
     while (tc--) {
         int n;
         cin >> n;
-        // 인수를 구하는 방식으로 해결..!
-        for (int i = 2; i <= n; i++) {
+        // 소인수를 구하는 방식..
+        for (int i = 2; i * i <= n; i++) {
             int cnt = 0;
             while (n % i == 0) {
                 cnt++;
                 n /= i;
             }
-            // cnt가 0이 아닐때만 출력하도록..
-            // 그렇게 하지 않으면 '출력 초과' 발생함..
+            // cnt 가 0이 아닐때 출력하도록 한다.
+            // 처리를 해주지 않으면 '출력 초과' 난다.
             if (cnt) cout << i << " " << cnt << '\n';
         }
+        // n == 1 인 경우에는 pass..
+        if (n > 1) cout << n << " " << 1 << '\n';
     }
     
     return 0;
