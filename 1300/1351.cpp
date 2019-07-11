@@ -10,6 +10,7 @@ unordered_map<long long, long long> dp;
 long long n, p, q;
 
 long long go(long long i) {
+    if (i == 0) return dp[0] = 1;
     if (dp.count(i)) return dp[i];
     return dp[i] = go(i / p) + go(i / q);
 }
@@ -19,8 +20,6 @@ int main() {
     cin.tie(0);
     
     cin >> n >> p >> q;
-    
-    dp[0] = 1;
     cout << go(n) << '\n';
     
     return 0;
