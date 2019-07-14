@@ -28,10 +28,9 @@ int main() {
     
     int tempA = a, tempB = b;
     if (tempA < tempB) swap(tempA, tempB);
-    int gcd = GCD(tempA, tempB);
     
-    string answer = to_string(a / gcd) + ":" + to_string(b / gcd);
-    cout << answer << '\n';
+    int gcd = GCD(tempA, tempB);
+    cout << (a / gcd) << ":" << (b / gcd) << '\n';
     
     return 0;
 }
