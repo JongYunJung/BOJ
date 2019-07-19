@@ -1,4 +1,4 @@
-// BOJ 10826 - 피보나치 수 4
+\// BOJ 10826 - 피보나치 수 4
 // 첫 번째 시도
 // map 컨테이너를 사용해서 값을 캐싱하려고 했다. (dp 방법) -> 메모리를 많이 쓴다.
 // 두 번째 시도
@@ -27,7 +27,8 @@ int main() {
         size_t tempSize1 = temp1.size();
         size_t tempSize2 = temp2.size();
         
-        curValue.assign(max(tempSize1, tempSize2), '0');
+        // curValue.assign(max(tempSize1, tempSize2), '0');
+        curValue.resize(max(tempSize1, tempSize2));
         size_t curValueSize = curValue.size();
         
         int carry = 0;
