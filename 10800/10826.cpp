@@ -28,6 +28,7 @@ int main() {
         size_t tempSize2 = temp2.size();
         
         // curValue.assign(max(tempSize1, tempSize2), '0');
+        // or
         curValue.resize(max(tempSize1, tempSize2));
         size_t curValueSize = curValue.size();
         
