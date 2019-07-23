@@ -10,20 +10,21 @@
 
 using namespace std;
 
-typedef vector<long long> ARRAY_1D;
-typedef vector<vector<long long> > ARRAY_2D;
-typedef unordered_map<long long, ARRAY_2D> UN_MAP;
+typedef vector<long long> VECTOR_1D;
+typedef vector<vector<long long> > VECTOR_2D;
+typedef unordered_map<long long, VECTOR_2D> UNORDERED_MAP;
 
-UN_MAP cache;
-ARRAY_2D init;
+UNORDERED_MAP cache;
+VECTOR_2D init;
 
 const int MOD = 1000;
 
-ARRAY_2D cal(ARRAY_2D& a, ARRAY_2D& b) {
-    ARRAY_2D answer(a.size(), ARRAY_1D(a.size(), 0));
-    for (int i = 0; i < answer.size(); i++) {
-        for (int j = 0; j < answer.size(); j++) {
-            for (int k = 0; k < answer.size(); k++) {
+VECTOR_2D cal(VECTOR_2D& a, VECTOR_2D& b) {
+    VECTOR_2D answer(a.size(), VECTOR_1D(a.size(), 0));
+    size_t answer_size = answer.size();
+    for (int i = 0; i < answer_size; i++) {
+        for (int j = 0; j < answer_size; j++) {
+            for (int k = 0; k < answer_size; k++) {
                 answer[i][j] += a[i][k] * b[k][j];
             }
             answer[i][j] %= MOD;
@@ -32,15 +33,15 @@ ARRAY_2D cal(ARRAY_2D& a, ARRAY_2D& b) {
     return answer;
 }
 
-ARRAY_2D go(long long b) {
+VECTOR_2D go(long long b) {
     if (b == 1 && !cache.count(b))
         return cache[1] = init;
     
     if (cache.count(b))
         return cache[b];
     
-    ARRAY_2D ans1 = go(b / 2);
-    ARRAY_2D ans2 = go(b / 2 + b % 2);
+    VECTOR_2D ans1 = go(b / 2);
+    VECTOR_2D ans2 = go(b / 2 + b % 2);
     
     return cache[b] = cal(ans1, ans2);
 }
@@ -53,7 +54,7 @@ int main() {
     long long b;
     cin >> n >> b;
     
-    init = ARRAY_2D(n, ARRAY_1D(n, 0));
+    init = VECTOR_2D(n, VECTOR_1D(n, 0));
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cin >> init[i][j];
@@ -61,7 +62,7 @@ int main() {
         }
     }
     
-    ARRAY_2D answer = go(b);
+    VECTOR_2D answer = go(b);
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             cout << answer[i][j] << " ";
