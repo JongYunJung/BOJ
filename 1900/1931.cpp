@@ -37,3 +37,35 @@ int main() {
     cout << ans << '\n';
     return 0;
 }
+
+// 두 번째로 풀어본 코드
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    
+    int n;
+    cin >> n;
+    
+    vector<pair<int, int> > arr(n);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i].second >> arr[i].first;
+    }
+    
+    sort(arr.begin(), arr.end());
+    
+    int answer = 1;
+    int endTime = arr[0].first;
+    for (int i = 1; i < n; i++) {
+        if (endTime > arr[i].second) continue;
+        endTime = arr[i].first;
+        answer++;
+    }
+    
+    cout << answer << '\n';
+    return 0;
+}
