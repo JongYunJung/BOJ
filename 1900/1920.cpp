@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+
 using namespace std;
 
 int main() {
@@ -12,26 +13,28 @@ int main() {
     
     int n;
     cin >> n;
-    vector<int> a(n);
+    
+    vector<int> target(n);
     for (int i = 0; i < n; i++) {
-        cin >> a[i];
+        cin >> target[i];
     }
+    
+    sort(target.begin(), target.end());
     
     int m;
     cin >> m;
-    sort(a.begin(), a.end());
-    while (m--) {
+    for (int i = 0; i < m; i++) {
         int value;
         cin >> value;
         
         bool find = false;
-        int left = 0, right = (int)a.size() - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (a[mid] > value) {
-                right = mid - 1;
-            } else if (a[mid] < value) {
-                left = mid + 1;
+        int start = 0, end = (int)target.size();
+        while (start <= end) {
+            int mid = (start + end) / 2;
+            if (target[mid] < value) {
+                start = mid + 1;
+            } else if (target[mid] > value) {
+                end = mid - 1;
             } else {
                 find = true;
                 break;
