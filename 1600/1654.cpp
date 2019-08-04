@@ -34,3 +34,40 @@ int main() {
     return 0;
 }
 
+// 두 번째 풀이
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    
+    int k, n;
+    cin >> k >> n;
+    
+    vector<long long> arr(k);
+    for (int i = 0; i < k; i++) {
+        cin >> arr[i];
+    }
+    
+    long long answer = 0;
+    long long low = 1, high = *max_element(arr.begin(), arr.end());
+    while (low <= high) {
+        long long mid = (low + high) / 2;
+        int cnt = 0;
+        for (int i = 0; i < k; i++) {
+            cnt += arr[i] / mid;
+        }
+        
+        if (cnt >= n) {
+            answer = mid;
+            low = mid + 1;
+        } else high = mid - 1;
+    }
+    
+    cout << answer << '\n';
+    return 0;
+}
