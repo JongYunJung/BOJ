@@ -1,11 +1,12 @@
 // BOJ 2110 - 공유기 설치
-// 해결하지 못해서 블로그를 참고..
-// parametric search -> binary search의 응용
-// parametric search ? 탐색을 통해 최적의 해를 찾는 방법
-// 이분 탐색 응용에 대해 더 풀어보자.
+// 이분 탐색 응용
+// -> 파라메트릭 탐색(parametric search)
+// 파라메트릭 탐색(parametric search)이란?
+// -> 이분 탐색을 통해 최적의 해를 찾는 방법
 #include <iostream>
 #include <algorithm>
 #include <vector>
+
 using namespace std;
 
 int main() {
@@ -14,35 +15,35 @@ int main() {
     
     int n, c;
     cin >> n >> c;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++) cin >> a[i];
     
-    sort(a.begin(), a.end());
+    vector<int> pos(n);
+    for (int i = 0; i < n; i++) {
+        cin >> pos[i];
+    }
     
-    int ans = 0;
-    int left = 1;
-    int right = a[n-1] - a[0];
-    while (left <= right) {
-        int gap = (left + right) / 2;
-        int std_house = a[0];   // 첫 번째 집을 기준
-        int temp_c = 1;         // 첫 번째 집에 공유기를 설치
-        
+    sort(pos.begin(), pos.end());
+    
+    int answer = 0;
+    int low = 1, high = pos[n-1] - pos[0];
+    while (low <= high) {
+        int mid = (low + high) / 2; // mid : 거리
+        int std = pos[0],  cnt = 1; // std : 기준점(첫 번째 집의 위치), cnt : 공유기 설치 수
+        // 좌표상 맨 앞에 있는 집에 설치를 하고난 후, (현재 위치 - 기준점 위치) 거리를 비교하며 공유기를 설치한다.
         for (int i = 1; i < n; i++) {
-            if (a[i] - std_house >= gap) {
-                std_house = a[i];
-                ++temp_c;
+            if (pos[i] - std >= mid) {
+                std = pos[i];
+                cnt++;
             }
         }
         
-        if (temp_c >= c) {
-            ans = gap;
-            left = gap + 1;
-        } else {
-            right = gap - 1;
-        }
+        // 공유기를 설치 했을때, 설치한 수가 설치해야되는 수보다 같거나 크면 거리를 기록한다. (answer = mid)
+        // 지금 거리보다 최대 거리가 존재할 수 있으므로 low > high 가 될 때까지 탐색하며 최대 거리를 찾는다.
+        if (cnt >= c) {
+            answer = mid;
+            low = mid + 1;
+        } else high = mid - 1;
     }
     
-    cout << ans << '\n';
+    cout << answer << '\n';
     return 0;
 }
-
