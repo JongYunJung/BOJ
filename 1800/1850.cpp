@@ -1,5 +1,6 @@
 // BOJ 1850 - 최대공약수
 // a 와 b 길이의 최대 공약수를 구한 다음 최대 공약수 만큼 1을 출력해주면 된다.
+// teswt
 #include <iostream>
 #include <string>
 
