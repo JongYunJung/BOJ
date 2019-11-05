@@ -1,5 +1,4 @@
 // BOJ 4948 - 베르트랑 공준
-// 테스트
 #include <iostream>
 #include <vector>
 #include <cmath>
